@@ -29,7 +29,7 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch("http://localhost:8000/api/v1/dalle", {
+        const response = await fetch("https://dalle-b98w.onrender.com/api/v1/dalle", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -42,12 +42,12 @@ const CreatePost = () => {
         const data = await response.json();
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
       } catch (err) {
-        alert(err);
+        toast.error(err);
       } finally {
         setGeneratingImg(false);
       }
     } else {
-      alert("Please provide proper prompt");
+      toast.error("Please provide proper prompt");
     }
   };
 
@@ -57,7 +57,7 @@ const CreatePost = () => {
     if (form.prompt && form.photo) {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:8000/api/v1/post", {
+        const response = await fetch("https://dalle-b98w.onrender.com/api/v1/post", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -66,15 +66,15 @@ const CreatePost = () => {
         });
 
         await response.json();
-        toast.success('Shared. Redirecting to Home...')
+        toast.success("Shared. Redirecting to Home...");
         navigate("/");
       } catch (err) {
-        alert(err);
+        toast.error(err);
       } finally {
         setLoading(false);
       }
     } else {
-      alert("Please generate an image with proper details");
+      toast.error("Please generate an image with proper details");
     }
   };
 

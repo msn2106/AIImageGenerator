@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, FormField, Loader } from "../components";
+import { toast } from 'react-toastify'
 
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0) {
@@ -18,7 +19,7 @@ const Home = () => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:8000/api/v1/post", {
+        const response = await fetch("https://dalle-b98w.onrender.com/api/v1/post", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -29,7 +30,7 @@ const Home = () => {
           setAllPosts(result.data.reverse());
         }
       } catch (error) {
-        alert(error);
+        toast.error('Failed to Load')
       } finally {
         setLoading(false);
       }
