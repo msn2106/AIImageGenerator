@@ -67,7 +67,7 @@ const CreatePost = () => {
 
         await response.json();
         toast.success("Shared. Redirecting to Home...");
-        navigate("/");
+        navigate("/AIImageGenerator/");
       } catch (err) {
         toast.error(err);
       } finally {
